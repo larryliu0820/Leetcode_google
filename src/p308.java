@@ -6,11 +6,11 @@ public class p308 {
     int M;
     int N;
     int[][] tree;
-    int[][] matrix;
+    int[][] nums;
     public p308(int[][] matrix) {
-        this.matrix = matrix;
         M = matrix.length;
         N = M == 0? 0: matrix[0].length;
+        nums = new int[M][N];
         tree = new int[M+1][N+1];
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
@@ -21,7 +21,8 @@ public class p308 {
 
     public void update(int row, int col, int val) {
         if (M == 0 || N == 0) return;
-        int delta = val - tree[row][col];
+        int delta = val - nums[row][col];
+        nums[row][col] = val;
         for (int i = row+1; i <= M; i += i & (-i)) {
             for (int j = col+1; j <= N; j += j & (-j)) {
                 tree[i][j] += delta;
